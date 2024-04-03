@@ -1,0 +1,70 @@
+﻿@model TesteIATec.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Editar Pessoa";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Editando "@Model.Nome"</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sexo" class="control-label"></label>
+                <select class="form-control">
+                    <option value="feminino">Feminino</option>
+                    <option value="masculino">Masculino</option>
+                </select>
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nacionalidade" class="control-label"></label>
+                <input asp-for="Nacionalidade" class="form-control" />
+                <span asp-validation-for="Nacionalidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input asp-for="DataNascimento" class="form-control" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="returnPhone">
+                    <label asp-for="Telefone" class="control-label"></label>
+                    @for (var x = 0; x< Model.Telefone.Count; x++)
+                    {
+                        <input asp-for="Telefone[x]" onkeydown="checkPhoneInputIfNumber(event)" class="form-control phone" />
+                    }
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+                </div>
+                <a href="javascript:void(0)" class="text-primary addPhoneInput">Adiconar número</a>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-success">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
